@@ -3,6 +3,7 @@ const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
 const clear = document.querySelector(".clear");
 const display = document.getElementById("display");
+const dot = document.querySelector('.dot')
 
 let displayX = "";
 let displayY = "";
@@ -33,14 +34,28 @@ operators.forEach((operator) => {
   });
 });
 
+dot.addEventListener('click', () => {
+  if (displayOp === '' && displayX.length >= 1 && !displayX.includes('.')) {
+    displayX += '.'
+    displayFill()
+  }else if(displayOp !== '' && displayY.trim().length >= 1 && !displayY.includes('.')){
+    displayY += '.'
+    displayFill()
+  }
+})
+
 clear.addEventListener("click", () => clearData());
 
 equals.addEventListener("click", () => {
   if (displayX !== "" && displayY !== "" && displayOp !== "") {
-    let res = operate(Number(displayX), Number(displayY), displayOp);
+    let res = operate(Number(displayX), Number(displayY), displayOp).toString();
     let next = nextOperator;
     clearData();
-    displayX = res;
+    if (res.includes('.')) {
+      displayX = truncateDecimal(res, 5)
+    }else{
+      displayX = res
+    }
     displayOp = next;
     displayFill();
   }
@@ -85,6 +100,13 @@ const adjustFontSize = () => {
   display.style.fontSize = `${fontSize}rem`;
 };
 
+const truncateDecimal = (n, max) => {
+  let index = n.indexOf('.');
+  if (index !== -1) {
+    n = n.substring(0, index + max + 1);
+  }
+  return n;
+}
 
 const add = (x, y) => x + y;
 const subtract = (x, y) => x - y;
