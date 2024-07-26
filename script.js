@@ -4,6 +4,7 @@ const equals = document.querySelector(".equals");
 const clear = document.querySelector(".clear");
 const display = document.getElementById("display");
 const dot = document.querySelector('.dot')
+const back = document.querySelector('.back')
 
 let displayX = "";
 let displayY = "";
@@ -60,6 +61,16 @@ equals.addEventListener("click", () => {
     displayFill();
   }
 });
+
+back.addEventListener('click', () => {
+  if (displayOp === '') {
+    displayX = displayX.slice(0, -1)
+    displayFill()
+  }else{
+    displayY = displayY.slice(0, -1)
+    displayFill()
+  }
+})
 
 const displayFill = () => {
   clearError()
