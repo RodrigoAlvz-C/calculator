@@ -42,7 +42,8 @@ body{
   padding: 10px;
   border-radius: 0.2rem;
   font-family: 'Orbitron';
-
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #keyboard{

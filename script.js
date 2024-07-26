@@ -48,6 +48,7 @@ equals.addEventListener("click", () => {
 
 const displayFill = () => {
   display.textContent = `${displayX} ${displayOp} ${displayY} ${nextOperator}`;
+  adjustFontSize()
 };
 
 const clearData = () => {
@@ -57,6 +58,23 @@ const clearData = () => {
   nextOperator = "";
   displayFill();
 };
+
+const adjustFontSize = () => {
+
+  const thresholds = [
+    { limit: 12, fontSize: 2 },
+    { limit: 17, fontSize: 1.5 },
+    { limit: 22, fontSize: 1.25 },
+    { limit: 27, fontSize: 1}
+  ];
+
+  const characterCount = display.textContent.length;
+
+  const { fontSize } = thresholds.find(threshold => characterCount <= threshold.limit);
+
+  display.style.fontSize = `${fontSize}rem`;
+};
+
 
 const add = (x, y) => x + y;
 const subtract = (x, y) => x - y;
