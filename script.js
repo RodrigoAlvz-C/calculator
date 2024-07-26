@@ -47,28 +47,38 @@ equals.addEventListener("click", () => {
 });
 
 const displayFill = () => {
+  clearError()
   display.textContent = `${displayX} ${displayOp} ${displayY} ${nextOperator}`;
   adjustFontSize()
 };
 
+const clearError = () => {
+  if (display.textContent.trim() === 'ERROR') {
+    resetValues()
+  }
+}
+
 const clearData = () => {
+  resetValues()
+  displayFill();
+};
+
+const resetValues = () => {
   displayX = "";
   displayY = "";
   displayOp = "";
   nextOperator = "";
-  displayFill();
-};
-
+}
 const adjustFontSize = () => {
 
   const thresholds = [
-    { limit: 12, fontSize: 2 },
-    { limit: 17, fontSize: 1.5 },
-    { limit: 22, fontSize: 1.25 },
-    { limit: 27, fontSize: 1}
+    { limit: 10, fontSize: 2 },
+    { limit: 15, fontSize: 1.5 },
+    { limit: 20, fontSize: 1.25 },
+    { limit: 25, fontSize: 1}
   ];
 
-  const characterCount = display.textContent.length;
+  const characterCount = display.textContent.trim().length;
 
   const { fontSize } = thresholds.find(threshold => characterCount <= threshold.limit);
 
